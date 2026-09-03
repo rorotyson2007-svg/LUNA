@@ -1,22 +1,14 @@
-import sys
 import os
 import asyncio
 import streamlit as st
 
-# make "app.pipeline" and "app.ingestion..." importable
-sys.path.append(os.path.join(os.path.dirname(__file__), "backend"))
-
-from app.pipeline import run_luna_pipeline
-from app.ingestion.file_parser import extract_text_from_file
+from pipeline import run_luna_pipeline
+from ingestion.file_parser import extract_text_from_file
 
 st.set_page_config(page_title="LUNA", layout="wide")
 
 st.title("🔍 LUNA")
 st.caption("Law-enforcement Unified Network for Advanced Investigation")
-
-# ------------------------------------------------------------
-# INPUT: text or file
-# ------------------------------------------------------------
 
 tab1, tab2 = st.tabs(["Enter Case Text", "Upload File"])
 
@@ -35,10 +27,6 @@ with tab2:
         if extracted:
             st.text_area("Extracted text", extracted, height=200)
             case_text = extracted.strip()
-
-# ------------------------------------------------------------
-# RUN
-# ------------------------------------------------------------
 
 if st.button("🚨 Investigate", type="primary"):
     if not case_text:
