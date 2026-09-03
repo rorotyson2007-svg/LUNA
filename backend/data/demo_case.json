@@ -1,0 +1,162 @@
+{
+  "id": "CASE-001",
+  "title": "The Missing Laptop",
+  "description": "A company laptop disappears from a restricted office between 14:05 and 14:20.",
+
+  "people": [
+    {
+      "id": "A17",
+      "label": "Person #A17",
+      "description": "Employee assigned to the office",
+      "identity_locked": true
+    },
+    {
+      "id": "B04",
+      "label": "Person #B04",
+      "description": "Employee working in the adjacent department",
+      "identity_locked": true
+    },
+    {
+      "id": "C09",
+      "label": "Person #C09",
+      "description": "Office cleaning staff",
+      "identity_locked": true
+    }
+  ],
+
+  "evidence": [
+    {
+      "id": "E01",
+      "type": "CCTV",
+      "timestamp": "14:03",
+      "source": "CAM-01",
+      "location": "Office A entrance",
+      "observation": "Person #A17 enters Office A carrying a coffee cup and a laptop is visible on the desk.",
+      "reliability": 0.95,
+      "people": ["A17"],
+      "objects": ["LAPTOP-01"],
+      "metadata": {}
+    },
+
+    {
+      "id": "E02",
+      "type": "ACCESS_LOG",
+      "timestamp": "14:07",
+      "source": "DOOR-SENSOR-01",
+      "location": "Office A",
+      "observation": "Office A door is opened using an authorized access card.",
+      "reliability": 0.99,
+      "people": [],
+      "objects": [],
+      "metadata": {
+        "card_id": "CARD-17"
+      }
+    },
+
+    {
+      "id": "E03",
+      "type": "CCTV",
+      "timestamp": "14:09",
+      "source": "CAM-01",
+      "location": "Office A entrance",
+      "observation": "Person #A17 exits Office A. No laptop is visibly carried.",
+      "reliability": 0.94,
+      "people": ["A17"],
+      "objects": ["LAPTOP-01"],
+      "metadata": {}
+    },
+
+    {
+      "id": "E04",
+      "type": "WITNESS",
+      "timestamp": "14:10",
+      "source": "Witness-W01",
+      "location": "Main corridor",
+      "observation": "Witness reports seeing Person #B04 walking toward the Office A corridor carrying a dark rectangular bag.",
+      "reliability": 0.65,
+      "people": ["B04"],
+      "objects": ["BAG-01"],
+      "metadata": {}
+    },
+
+    {
+      "id": "E05",
+      "type": "CCTV",
+      "timestamp": "14:11",
+      "source": "CAM-02",
+      "location": "Main corridor",
+      "observation": "Person #B04 walks toward the Office A corridor. The camera does not show whether B04 enters Office A.",
+      "reliability": 0.92,
+      "people": ["B04"],
+      "objects": [],
+      "metadata": {}
+    },
+
+    {
+      "id": "E06",
+      "type": "WITNESS",
+      "timestamp": "14:12",
+      "source": "Witness-W02",
+      "location": "Office A corridor",
+      "observation": "Witness reports hearing the Office A door open and close but did not see who entered.",
+      "reliability": 0.55,
+      "people": [],
+      "objects": [],
+      "metadata": {}
+    },
+
+    {
+      "id": "E07",
+      "type": "CCTV",
+      "timestamp": "14:14",
+      "source": "CAM-03",
+      "location": "Service corridor",
+      "observation": "Person #C09 passes through the service corridor pushing a cleaning cart. The cart partially blocks the camera view.",
+      "reliability": 0.88,
+      "people": ["C09"],
+      "objects": ["CLEANING-CART"],
+      "metadata": {}
+    },
+
+    {
+      "id": "E08",
+      "type": "INVENTORY",
+      "timestamp": "14:20",
+      "source": "Inventory-System",
+      "location": "Office A",
+      "observation": "Laptop LAPTOP-01 is reported missing from its assigned desk.",
+      "reliability": 0.98,
+      "people": [],
+      "objects": ["LAPTOP-01"],
+      "metadata": {}
+    },
+
+    {
+      "id": "E09",
+      "type": "ACCESS_LOG",
+      "timestamp": "14:21",
+      "source": "DOOR-SENSOR-01",
+      "location": "Office A",
+      "observation": "Office A door is opened using an authorized access card.",
+      "reliability": 0.99,
+      "people": [],
+      "objects": [],
+      "metadata": {
+        "card_id": "CARD-17"
+      }
+    },
+
+    {
+      "id": "E10",
+      "type": "CCTV",
+      "timestamp": "14:22",
+      "source": "CAM-01",
+      "location": "Office A entrance",
+      "observation": "Person #A17 re-enters Office A and appears to look around the desk area.",
+      "reliability": 0.94,
+      "people": ["A17"],
+      "objects": [],
+      "metadata": {}
+    }
+  ]
+}

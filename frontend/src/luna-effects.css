@@ -1,0 +1,359 @@
+/* =================================================================
+   LUNA — FORENSIC / TERMINAL EFFECTS LAYER
+   Import this AFTER index.css: import "./luna-effects.css";
+   Nothing here overrides existing classes — it's additive.
+   ================================================================= */
+
+/* ---------- glitch headline (use on any <h1/h2 className="luna-glitch" data-text="SAME TEXT"> ) ---------- */
+.luna-glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.luna-glitch::before,
+.luna-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: inherit;
+  background: transparent;
+}
+
+.luna-glitch::before {
+  color: #ff3b3b;
+  animation: luna-glitch-1 3.4s infinite linear;
+  clip-path: inset(0 0 0 0);
+  opacity: 0.75;
+}
+
+.luna-glitch::after {
+  color: #7a0000;
+  animation: luna-glitch-2 3.4s infinite linear;
+  clip-path: inset(0 0 0 0);
+  opacity: 0.6;
+}
+
+@keyframes luna-glitch-1 {
+  0%, 92%, 100% { transform: translate(0, 0); clip-path: inset(0 0 0 0); }
+  93% { transform: translate(-2px, 1px); clip-path: inset(10% 0 60% 0); }
+  95% { transform: translate(2px, -1px); clip-path: inset(60% 0 5% 0); }
+  97% { transform: translate(-1px, 0); clip-path: inset(30% 0 40% 0); }
+}
+
+@keyframes luna-glitch-2 {
+  0%, 90%, 100% { transform: translate(0, 0); clip-path: inset(0 0 0 0); }
+  91% { transform: translate(2px, -1px); clip-path: inset(70% 0 5% 0); }
+  94% { transform: translate(-2px, 1px); clip-path: inset(15% 0 55% 0); }
+  98% { transform: translate(1px, 0); clip-path: inset(45% 0 25% 0); }
+}
+
+/* ---------- animated grain (place a <div className="luna-modal-noise"/> as an overlay) ---------- */
+.luna-modal-noise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  animation: luna-grain 1s steps(4) infinite;
+}
+
+@keyframes luna-grain {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-1%, 1%); }
+  50% { transform: translate(1%, -1%); }
+  75% { transform: translate(-1%, -1%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ---------- full-screen analysis modal ---------- */
+.luna-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: radial-gradient(circle at 50% 40%, rgba(60, 0, 0, 0.35), rgba(2, 2, 2, 0.96) 70%);
+  backdrop-filter: blur(6px);
+  animation: luna-fade-in 0.35s ease both;
+}
+
+@keyframes luna-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.luna-modal {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  max-height: 88vh;
+  overflow: hidden;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  background: #060404;
+  border-radius: 22px;
+  padding: 34px 34px 26px;
+  box-shadow:
+    0 0 0 1px rgba(239, 68, 68, 0.06),
+    0 30px 120px rgba(150, 0, 0, 0.25);
+  animation: luna-rise 0.4s cubic-bezier(.2, .9, .2, 1) both;
+}
+
+@keyframes luna-rise {
+  from { transform: translateY(18px) scale(0.98); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.luna-modal-corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: rgba(239, 68, 68, 0.55);
+  z-index: 2;
+}
+
+.luna-modal-corner.tl { top: 10px; left: 10px; border-top: 1px solid; border-left: 1px solid; }
+.luna-modal-corner.tr { top: 10px; right: 10px; border-top: 1px solid; border-right: 1px solid; }
+.luna-modal-corner.bl { bottom: 10px; left: 10px; border-bottom: 1px solid; border-left: 1px solid; }
+.luna-modal-corner.br { bottom: 10px; right: 10px; border-bottom: 1px solid; border-right: 1px solid; }
+
+/* radar */
+.luna-radar {
+  position: absolute;
+  top: -70px;
+  right: -70px;
+  width: 220px;
+  height: 220px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.luna-radar-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(239, 68, 68, 0.18);
+}
+
+.luna-radar-ring.r2 { inset: 30px; }
+.luna-radar-ring.r3 { inset: 60px; }
+
+.luna-radar-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.9);
+  transform: translate(-50%, -50%);
+}
+
+.luna-radar-sweep {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(239, 68, 68, 0.55),
+    transparent 28%
+  );
+  animation: luna-sweep 2.4s linear infinite;
+}
+
+@keyframes luna-sweep {
+  to { transform: rotate(360deg); }
+}
+
+/* header */
+.luna-modal-head {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 22px;
+}
+
+.luna-modal-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(239, 68, 68, 0.75);
+}
+
+.luna-dot-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.9);
+  animation: luna-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes luna-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+.luna-modal-head h2 {
+  margin: 10px 0 0;
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  color: #f5f5f5;
+}
+
+/* step rail */
+.luna-step-rail {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.luna-step {
+  text-align: center;
+  padding: 10px 4px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.015);
+  transition: all 0.35s ease;
+}
+
+.luna-step--live {
+  border-color: rgba(239, 68, 68, 0.4);
+  background: rgba(239, 68, 68, 0.07);
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.08);
+}
+
+.luna-step--done {
+  border-color: rgba(239, 68, 68, 0.18);
+  background: rgba(239, 68, 68, 0.03);
+}
+
+.luna-step-marker {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  color: #737a89;
+}
+
+.luna-step--live .luna-step-marker,
+.luna-step--done .luna-step-marker {
+  color: #ef4444;
+}
+
+.luna-step-label {
+  margin-top: 4px;
+  font-size: 8px;
+  line-height: 1.35;
+  color: #626a79;
+  letter-spacing: 0.02em;
+}
+
+.luna-step--live .luna-step-label {
+  color: #d7dbe2;
+}
+
+/* terminal log */
+.luna-terminal {
+  position: relative;
+  z-index: 2;
+  height: 220px;
+  overflow-y: auto;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: #030202;
+  border-radius: 12px;
+  padding: 16px 18px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  line-height: 1.9;
+  scrollbar-width: thin;
+}
+
+.luna-terminal-header {
+  margin: 10px 0 4px;
+  color: #ef4444;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.luna-terminal-header:first-child {
+  margin-top: 0;
+}
+
+.luna-terminal-line {
+  color: #9aa0ab;
+  animation: luna-line-in 0.25s ease both;
+}
+
+@keyframes luna-line-in {
+  from { opacity: 0; transform: translateX(-4px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.luna-cursor {
+  display: inline-block;
+  width: 6px;
+  height: 12px;
+  margin-left: 2px;
+  background: #ef4444;
+  animation: luna-blink 1s steps(1) infinite;
+}
+
+@keyframes luna-blink {
+  50% { opacity: 0; }
+}
+
+/* footer */
+.luna-modal-footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 18px;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.luna-modal-footer-status {
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: #737a89;
+  text-transform: uppercase;
+}
+
+.luna-modal-dismiss {
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  background: rgba(239, 68, 68, 0.1);
+  color: #ff8080;
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.luna-modal-dismiss:hover {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: rgba(239, 68, 68, 0.6);
+}
+
+@media (max-width: 600px) {
+  .luna-step-rail { grid-template-columns: repeat(3, 1fr); }
+  .luna-modal { padding: 24px 20px 20px; }
+  .luna-modal-head h2 { font-size: 20px; }
+}
